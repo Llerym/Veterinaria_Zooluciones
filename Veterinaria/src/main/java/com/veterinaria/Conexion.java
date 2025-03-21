@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Conexion {
-@Autowired
+@Autowired//inyectar-colocar dependencias del proyecto
     private JdbcTemplate jdbcTemplate;
 
     public void testConnection() {

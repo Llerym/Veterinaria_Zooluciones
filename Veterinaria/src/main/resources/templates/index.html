@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Insertar Color</title>
+</head>
+<body>
+    <h2>Insertar Color</h2>
+    
+    <form action="/color/insertar" method="post">
+        <label>ID Color</label>
+        <input type="number" name="idColor" required>
+        
+        <label>Descripción del Color:</label>
+        <input type="text" name="descripcion" required>
+        
+        <button type="submit">Insertar</button>
+    </form>
+
+    <p th:text="${mensaje}"></p>
+</body>
+</html>
