@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Insertar Color</title>
+    </head>
+    <body>
+        <section th:fragment="insertarColor">
+            <h2>Insertar Color</h2>
+
+            <form action="/mascota/listado" method="post">
+                <label>ID Color:</label>
+                <input type="number" name="idColor" required>
+
+                <label>Descripción del Color:</label>
+                <input type="text" name="descripcion" required>
+
+                <button type="submit">Insertar</button>
+            </form>
+
+            <p th:text="${mensaje}"></p>
+
+        </section>
+
+    </body>
+</html>
+
+

@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="head">
+        <title>Veterinaria Zooluciones</title>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+            <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
+            <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+            <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+            <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+            <script th:src="@{/js/rutinas.js}" type="text/javascript"></script>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>   
+    </head>
+    <body>
+        <!-- Barra de navegacion  -->
+        <header th:fragment="header" class="header">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-0">
+                <div class="container">
+                    <a class="navbar-brand" href="#">Veterinaria Zooluciones</a>
+                    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+
+                        <ul class="navbar-nav">
+
+                            <!-- Mascota -->  
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" 
+                                   data-bs-toggle="dropdown" 
+                                   href="#" 
+                                   role="button" 
+                                   aria-expanded="false">Mascotas</a>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item"  th:href="@{/}">Mascotas</a></li>
+                                    <li><a class="dropdown-item"  th:href="@{/}">Raza</a></li>
+                                    <li><a class="dropdown-item"  th:href="@{/mascota/listado}">Color</a></li>
+
+                                </ul>
+                            </li>
+                            
+                            <!-- Cliente -->        
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" 
+                                   data-bs-toggle="dropdown" 
+                                   href="#" 
+                                   role="button" 
+                                   aria-expanded="false">Cliente</a>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item"  th:href="@{/}">Cliente</a></li>
+                                    <li><a class="dropdown-item"  th:href="@{/}">Direccion</a></li>                                   
+                                </ul>
+                            </li>
+
+                            <!-- Veterinario -->        
+                            <li class="nav-item px-2"><a class="nav-link" th:href="@{/}">Veterinario</a></li>
+                            
+                            <!-- Historial Medico -->        
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" 
+                                   data-bs-toggle="dropdown" 
+                                   href="#" 
+                                   role="button" 
+                                   aria-expanded="false">Historial Medico</a>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item"  th:href="@{/}">Historial Medico</a></li>
+                                    <li><a class="dropdown-item"  th:href="@{/}">Diagnostico</a></li>
+                                    <li><a class="dropdown-item"  th:href="@{/}">Tratamiento</a></li>                                   
+                                </ul>
+                            </li>
+                            
+                            <!-- Cita -->        
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" 
+                                   data-bs-toggle="dropdown" 
+                                   href="#" 
+                                   role="button" 
+                                   aria-expanded="false">Cita</a>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item"  th:href="@{/}">Cita</a></li>
+                                    <li><a class="dropdown-item"  th:href="@{/}">Factura</a></li>
+                                    <li><a class="dropdown-item"  th:href="@{/}">Detalle</a></li> 
+                                    <li><a class="dropdown-item"  th:href="@{/}">Metodo de pago</a></li> 
+                                </ul>
+                            </li>
+                            
+                            <!-- Cita -->        
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" 
+                                   data-bs-toggle="dropdown" 
+                                   href="#" 
+                                   role="button" 
+                                   aria-expanded="false">Producto</a>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item"  th:href="@{/}">Producto</a></li>
+                                    <li><a class="dropdown-item"  th:href="@{/}">Proveedor</a></li>
+                                    <li><a class="dropdown-item"  th:href="@{/}">Categoria</a></li> 
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+            </nav>
+
+
+        </header>
+    </body>
+</html>
+
