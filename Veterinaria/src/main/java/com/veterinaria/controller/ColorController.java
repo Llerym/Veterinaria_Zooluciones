@@ -21,7 +21,7 @@ public class ColorController {
 
     @GetMapping("/listado")
     public String mostrarFormulario() {
-        return "mascota/listado";  // Muestra el formulario
+        return "mascota/listadoColor";  // Muestra el formulario
     }
 
     @PostMapping("/listado")
@@ -32,6 +32,6 @@ public class ColorController {
         } catch (Exception e) {
             model.addAttribute("mensaje", "Error al insertar color: " + e.getMessage());
         }
-        return "mascota/listado";  // Vuelve a mostrar el formulario con el mensaje
+        return "mascota/listadoColor";  // Vuelve a mostrar el formulario con el mensaje
     }
 }

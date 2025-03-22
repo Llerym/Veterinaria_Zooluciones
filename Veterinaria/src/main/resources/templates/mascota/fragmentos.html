@@ -21,6 +21,57 @@
             <p th:text="${mensaje}"></p>
 
         </section>
+        
+        <section th:fragment="insertarRaza">
+            <h2>Insertar Raza</h2>
+
+            <form action="/raza/listado" method="post">
+                <label>ID Raza:</label>
+                <input type="number" name="idRaza" required>
+
+                <label>Descripción del Raza:</label>
+                <input type="text" name="descripcionRaza" required>
+
+                <button type="submit">Insertar</button>
+            </form>
+
+            <p th:text="${mensaje}"></p>
+
+        </section>
+        
+        
+        <section th:fragment="insertarMascota">
+            <h2>Insertar Mascota</h2>
+
+            <form action="/mascota/listado" method="post">
+                <label>ID Mascota:</label>
+                <input type="number" name="idMascota" required>
+
+                <label>Nombre Mascota:</label>
+                <input type="text" name="nombreMascota" required>
+                
+                <label>Edad Mascota:</label>
+                <input type="number" name="edad" required>
+                
+                <label>Peso Mascota:</label>
+                <input type="number" name="peso" required>
+                
+                <label>Fecha Nacimiento Mascota:</label>
+                <input type="date" name="fechaNacimiento" required>
+                
+                <label>ID Raza Mascota:</label>
+                <input type="number" name="idRaza" required>
+                
+                <label>ID Color Mascota:</label>
+                <input type="number" name="idColor" required>
+
+                <button type="submit">Insertar</button>
+            </form>
+
+            <p th:text="${mensaje}"></p>
+
+        </section>
+        
 
     </body>
 </html>

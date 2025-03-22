@@ -18,7 +18,7 @@ public class RazaDao {
 
     public void insertarRaza(int idRaza, String descripcionRaza, int idEstado, 
                              String creadoPor, String modificadoPor, String accion) {
-        String sql = "{call insertar_raza(?, ?, ?, ?, ?, ?)}";
+        String sql = "{call vet_solicitudes_pkg.insertar_raza(?, ?, ?, ?, ?, ?)}";
         jdbcTemplate.update(sql, idRaza, descripcionRaza, idEstado, 
                             creadoPor, modificadoPor, accion);
     }

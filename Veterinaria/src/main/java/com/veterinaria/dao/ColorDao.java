@@ -13,7 +13,7 @@ public class ColorDao {
     private JdbcTemplate jdbcTemplate;
 
     public void insertarColor(int idColor, String descripcion, int idEstado, String creadoPor, String modificadoPor, String accion) {
-        String sql = "{call insertar_color(?, ?, ?, ?, ?, ?)}";
+        String sql = "{call vet_solicitudes_pkg.insertar_color(?, ?, ?, ?, ?, ?)}";
         jdbcTemplate.update(sql, idColor, descripcion, idEstado, creadoPor, modificadoPor, accion);
     }
 }
