@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Controller
@@ -26,8 +27,12 @@ public class MascotaController {
     }
 
     @PostMapping("/listado")
-    public String insertarMascota(@RequestParam int idMascota, @RequestParam String nombreMascota, @RequestParam int edad, @RequestParam double peso, 
-                                   @RequestParam Date fechaNacimiento, @RequestParam int idRaza, @RequestParam int idColor, Model model) {
+    public String insertarMascota(@RequestParam int idMascota, 
+                                  @RequestParam String nombreMascota, 
+                                  @RequestParam int edad, 
+                                  @RequestParam double peso, 
+                                  @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaNacimiento, 
+                                  @RequestParam int idRaza, @RequestParam int idColor, Model model) {
         try {
             mascotaDao.insertarMascota(idMascota, nombreMascota, edad, peso, fechaNacimiento, idRaza, idColor, 1, "admin", "admin", "insert");
             model.addAttribute("mensaje", "Mascota insertado con éxito");
