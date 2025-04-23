@@ -12,8 +12,8 @@ public class ColorDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public void insertarColor(int idColor, String descripcion, int idEstado, String creadoPor, String modificadoPor, String accion) {
-        String sql = "{call vet_solicitudes_pkg.insertar_color(?, ?, ?, ?, ?, ?)}";
-        jdbcTemplate.update(sql, idColor, descripcion, idEstado, creadoPor, modificadoPor, accion);
+    public void insertarColor(String descripcion, int idEstado) {
+        String sql = "{call  pkg_fide_veterinaria.insertar_color_sp(?, ?)}";
+        jdbcTemplate.update(sql,  descripcion, idEstado);
     }
 }

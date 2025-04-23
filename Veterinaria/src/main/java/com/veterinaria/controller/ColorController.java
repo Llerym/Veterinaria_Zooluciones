@@ -25,9 +25,9 @@ public class ColorController {
     }
 
     @PostMapping("/listado")
-    public String insertarColor(@RequestParam int idColor, @RequestParam String descripcion, Model model) {
+    public String insertarColor( @RequestParam String descripcion, Model model) {
         try {
-            colorDao.insertarColor(idColor, descripcion, 1, "admin", "admin", "insert");
+            colorDao.insertarColor(descripcion, 1);
             model.addAttribute("mensaje", "Color insertado con éxito");
         } catch (Exception e) {
             model.addAttribute("mensaje", "Error al insertar color: " + e.getMessage());
