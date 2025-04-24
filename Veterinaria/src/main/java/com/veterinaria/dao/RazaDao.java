@@ -16,10 +16,8 @@ public class RazaDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public void insertarRaza(int idRaza, String descripcionRaza, int idEstado, 
-                             String creadoPor, String modificadoPor, String accion) {
-        String sql = "{call vet_solicitudes_pkg.insertar_raza(?, ?, ?, ?, ?, ?)}";
-        jdbcTemplate.update(sql, idRaza, descripcionRaza, idEstado, 
-                            creadoPor, modificadoPor, accion);
+    public void insertarRaza(String descripcionRaza) {
+        String sql = "{call pkg_fide_veterinaria.insertar_raza_sp(?)}";
+        jdbcTemplate.update(sql, descripcionRaza);
     }
 }

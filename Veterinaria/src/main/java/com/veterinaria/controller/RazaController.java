@@ -23,9 +23,9 @@ public class RazaController {
     }
 
     @PostMapping("/listado")
-    public String insertarColor(@RequestParam int idRaza, @RequestParam String descripcionRaza, Model model) {
+    public String insertarColor(@RequestParam String descripcionRaza, Model model) {
         try {
-            razaDao.insertarRaza(idRaza, descripcionRaza, 1, "admin", "admin", "insert");
+            razaDao.insertarRaza(descripcionRaza);
             model.addAttribute("mensaje", "Raza insertada con éxito");
         } catch (Exception e) {
             model.addAttribute("mensaje", "Error al insertar raza: " + e.getMessage());
