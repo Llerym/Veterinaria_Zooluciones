@@ -39,6 +39,39 @@
             <p th:text="${mensaje}"></p>
 
         </section>
+    
+    
+    
+     <section th:fragment="insertarDistrito">
+            <h2>Insertar Distrito</h2>
+
+            <form action="/distrito/listado" method="post">
+                
+
+                <label>Nombre del Distrito: </label>
+                <input type="text" name="nombreDistrito" required>
+             
+                
+                <label>Id del canton: </label>
+                <input type="text" name="idCanton" required>
+                
+                
+                  <label>Id de la provincia:  </label>
+                <input type="text" name="idProvincia" required>
+                
+                <button type="submit">Insertar</button>
+                
+                
+                
+            </form>
+
+            <p th:text="${mensaje}"></p>
+
+        </section>
+    
+    
+    
+    
 
     </body>
 </html>

@@ -13,10 +13,8 @@ public class DistritoDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public void insertarDistrito(int idDistrito, String nombreDistrito, int idEstado, 
-                                 String creadoPor, String modificadoPor, String accion) {
-        String sql = "{call insertar_distrito(?, ?, ?, ?, ?, ?)}";
-        jdbcTemplate.update(sql, idDistrito, nombreDistrito, idEstado, creadoPor, 
-                            modificadoPor, accion);
+    public void insertarDistrito(String nombreDistrito, Integer idCanton, Integer idProvincia ) {
+        String sql = "{call pkg_fide_veterinaria.insertar_distrito_sp(?, ?, ?)}";
+        jdbcTemplate.update(sql, nombreDistrito, idCanton, idProvincia);
     }
 }
