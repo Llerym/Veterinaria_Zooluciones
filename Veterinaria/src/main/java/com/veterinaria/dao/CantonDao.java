@@ -11,10 +11,8 @@ public class CantonDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public void insertarCanton(int idCanton, String nombreCanton, Integer idProvincia, int idEstado, 
-                               String creadoPor, String modificadoPor, String accion) {
-        String sql = "{call insertar_canton(?, ?, ?, ?, ?, ?, ?)}";
-        jdbcTemplate.update(sql, idCanton, nombreCanton, idProvincia, idEstado, creadoPor, 
-                            modificadoPor, accion);
+    public void insertarCanton(String nombreCanton, Integer idProvincia) {
+        String sql = "{call pkg_fide_veterinaria.insertar_canton_sp(?, ?)}";
+        jdbcTemplate.update(sql,  nombreCanton, idProvincia);
     }
 }
