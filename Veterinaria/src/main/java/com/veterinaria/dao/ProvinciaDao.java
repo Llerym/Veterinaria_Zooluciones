@@ -13,10 +13,8 @@ public class ProvinciaDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public void insertarProvincia(int idProvincia, String nombreProvincia, int idEstado, 
-                                  String creadoPor, String modificadoPor, String accion) {
-        String sql = "{call insertar_provincia(?, ?, ?, ?, ?, ?)}";
-        jdbcTemplate.update(sql, idProvincia, nombreProvincia, idEstado, 
-                            creadoPor, modificadoPor, accion);
+    public void insertarProvincia( String nombreProvincia) {
+        String sql = "{call pkg_fide_veterinaria.insertar_provincia_sp(?)}";
+        jdbcTemplate.update(sql, nombreProvincia);
     }
 }

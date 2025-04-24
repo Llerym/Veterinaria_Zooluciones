@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+    
+        <section th:fragment="insertarProvincia">
+            <h2>Insertar Provincia</h2>
+
+            <form action="/provincia/listado" method="post">
+                
+
+                <label>Nombre de la Provincia: </label>
+                <input type="text" name="nombreProvincia" required>
+
+                <button type="submit">Insertar</button>
+            </form>
+
+            <p th:text="${mensaje}"></p>
+
+        </section>
+        
+        
+
+    </body>
+</html>
+
+
