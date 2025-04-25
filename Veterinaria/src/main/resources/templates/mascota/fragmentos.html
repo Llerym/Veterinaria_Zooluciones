@@ -42,8 +42,7 @@
             <h2>Insertar Mascota</h2>
 
             <form action="/mascota/listado" method="post">
-                <label>ID Mascota:</label>
-                <input type="number" name="idMascota" required>
+               
 
                 <label>Nombre Mascota:</label>
                 <input type="text" name="nombreMascota" required>
@@ -57,10 +56,23 @@
                 <label>Fecha Nacimiento Mascota:</label>
                 <input type="date" name="fechaNacimiento" required>
                 
+                <!--> 
                 <label>ID Raza Mascota:</label>
                 <input type="number" name="idRaza" required>
-                
+-->
+                <label>Raza Mascota:</label>
+                <select name="idRaza" required>
+                    <option value="">Seleccione una raza</option>
+                    <option th:each="r : ${razas}"
+                            th:value="${r.idRaza}"
+                            th:text="${r.descripcionRaza}">
+                    </option>
+                </select>
+
                 <label>ID Color Mascota:</label>
+                <input type="number" name="idColor" required>
+                
+                <label>ID Cliente:</label>
                 <input type="number" name="idColor" required>
 
                 <button type="submit">Insertar</button>
