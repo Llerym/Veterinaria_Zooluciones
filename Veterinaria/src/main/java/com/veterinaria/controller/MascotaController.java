@@ -23,6 +23,8 @@ public class MascotaController {
 
     @Autowired
     private MascotaDao mascotaDao;
+    
+    @Autowired
     private RazaDao razaDao;
 
     @GetMapping("/listado")

@@ -8,20 +8,15 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 import lombok.Data;
-/**
- *
- * @author llech
- */
 
 
 @Data   //Generar por dejabo los set y get
-@Entity
 @Table(name = "FIDE_RAZA_TB")
 public class Raza implements Serializable{
 
        private static final long serialVersionUID = 1L;
  
-    
+       private Long idRaza;
        private String descripcionRaza;
        
        public Raza() {
@@ -31,11 +26,5 @@ public class Raza implements Serializable{
            this.descripcionRaza = descripcionRaza;
        }
     
-    
-    
-    
-    
-    
-    
-    
+   
 }

@@ -18,6 +18,6 @@ public class MascotaDao {
                                 Date fechaNacimiento, int idRaza, int idColor, int idCliente) {
         String sql = "{call pkg_fide_veterinaria.insertar_mascota_sp(?, ?, ?, ?, ?, ?, ?)}";
         jdbcTemplate.update(sql,  nombreMascota, edad, peso, fechaNacimiento, 
-                            idRaza, idColor);
+                            idRaza, idColor, idCliente);
     }
 }

@@ -41,7 +41,7 @@
         <section th:fragment="insertarMascota">
             <h2>Insertar Mascota</h2>
 
-            <form action="/mascota/listado" method="post">
+            <form th:action="@{/mascota/listado}" method="post">
                
 
                 <label>Nombre Mascota:</label>
@@ -56,10 +56,11 @@
                 <label>Fecha Nacimiento Mascota:</label>
                 <input type="date" name="fechaNacimiento" required>
                 
-                <!--> 
-                <label>ID Raza Mascota:</label>
-                <input type="number" name="idRaza" required>
--->
+                <!-- <label>ID Raza Mascota:</label>
+                <input type="number" name="idRaza" required> -->
+                
+
+
                 <label>Raza Mascota:</label>
                 <select name="idRaza" required>
                     <option value="">Seleccione una raza</option>
@@ -69,11 +70,12 @@
                     </option>
                 </select>
 
+
                 <label>ID Color Mascota:</label>
                 <input type="number" name="idColor" required>
                 
                 <label>ID Cliente:</label>
-                <input type="number" name="idColor" required>
+                <input type="number" name="idCliente" required>
 
                 <button type="submit">Insertar</button>
             </form>

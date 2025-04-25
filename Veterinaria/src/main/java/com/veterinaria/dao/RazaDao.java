@@ -37,7 +37,7 @@ public class RazaDao {
 
         this.listarRazasCall = new SimpleJdbcCall(jdbcTemplate)
 
-            .withCatalogName("vet_solicitudes_pkg")   
+            .withCatalogName("pkg_fide_veterinaria")   
 
             .withProcedureName("listar_razas_cr")
 
