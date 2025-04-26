@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Productos</title>
+    </head>
+    
+    
+    
+    <body>
+
+        <section th:fragment="listarProductos">
+            <div class="container mt-4">
+                <h2>Listado de Productos</h2>
+
+                <a th:href="@{/producto/insertar}" class="btn btn-info mb-3">Insertar Producto</a>
+
+
+                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Total de Productos</div>
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${total}">0</h5>
+                    </div>
+                </div>
+                
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Nombre Producto</th>
+                            <th>Precio de Venta</th>
+                            <th>Precio de Compra</th>
+                            <th>Cantidad</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="c : ${productos}">
+                            <td th:text="${c.nombreProducto}"></td>
+                            <td th:text="${c.precioVenta}"></td>
+                            <td th:text="${c.precioCompra}"></td>
+                            <td th:text="${c.cantidad}"></td>
+                            <td th:text="${c.estado}"></td>
+                            <td>
+                                <!-- BOTON ACTUALIZAR 
+                                <form th:action="@{/producto/actualizar}" method="post">
+                                    <input type="hidden" name="idProducto" th:value="${c.idProducto}"/>
+                                    <button type="submit" class="btn btn-warning">Editar</button>
+                                </form> -->
+
+                                <!-- BOTON ELIMINAR (DESACTIVAR) -->
+                                <form th:action="@{/producto/eliminar}" method="post">
+                                    <input type="hidden" name="idProducto" th:value="${c.idProducto}"/>
+                                    <button type="submit" class="btn btn-danger">Inactivar</button>
+                                </form> 
+
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- FORMULARIO PARA INSERTAR PRODUCTO. SE LLAMA EN INSERTAR.HTML -->
+        <section th:fragment="insertarProducto">
+            <div class="container mt-4">
+                <h2 class="mb-4">Insertar Producto</h2>
+
+                <form th:action="@{/producto/insertar}" method="post">
+                    <div class="form-row">
+                        
+                        <div class="form-group col-md-6">
+                            <label>Nombre Producto:</label>
+                            <input type="text" class="form-control" name="nombreProducto" required>
+                        </div>
+                        
+                        <div class="form-group col-md-6">
+                            <label>Precio Venta</label>
+                            <input type="number" class="form-control" name="precioVenta" required>
+                        </div>
+                        
+                        <div class="form-group col-md-6">
+                            <label>Precio Compra</label>
+                            <input type="number" class="form-control" name="precioCompra" required>
+                        </div>
+                        
+                        <div class="form-group col-md-6">
+                            <label>Cantidad</label>
+                            <input type="number" class="form-control" name="cantidad" required>
+                        </div>
+
+                    <button type="submit" class="btn btn-primary mt-3">Insertar</button>
+                    <br/>
+                    <div th:if="${mensaje}"
+                         th:classappend="${mensaje.contains('error') ? 'alert-danger' : 'alert-success'}"
+                         class="alert"
+                         role="alert">
+                        <span th:text="${mensaje}"></span>
+                    </div>
+
+                    </div>
+                </form>
+            </div>
+        </section>
+
+
+        <!-- FORMULARIO PARA ACTUALIZAR PRODUCTO. SE LLAMA EN ACTUALIZAR.HTML -->
+
+        <section th:fragment="actualizarProducto">
+            <div class="container mt-4">
+                <h2 class="mb-4">Editar Producto</h2>
+                <form th:action="@{/producto/actualizar}"
+                      th:object="${producto}"
+                      method="post">
+                    <div class="form-row">
+                    <!-- ID oculto -->
+                    <input type="hidden" th:field="*{idProducto}" />
+
+                    <div class="form-group">
+                        <label>Nombre Producto:</label>
+                        <input type="text" th:field="*{nombreProducto}"
+                               class="form-control" required/>
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <label>Precio Venta</label>
+                        <input type="text" th:field="*{precioVenta}"
+                               class="form-control" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Precio Compra</label>
+                        <input type="number" th:field="*{precioCompra}"
+                               class="form-control" required/>
+                    </div>
+                    
+                    
+                    <div class="form-group">
+                        <label>Estado:</label>
+                        <select th:field="*{idEstado}" class="form-control" required>
+                            <option th:each="e : ${estados}"
+                                    th:value="${e}"
+                                    th:text="${e == 1 ? 'Activo' : 'Inactivo'}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    
+                    
+                    <!-- mensaje de éxito solamente si mensaje no es null y contiene "éxito" -->
+                    <div th:if="${mensaje != null and mensaje.contains('éxito')}"
+                         class="alert alert-success mt-3">
+                        <span th:text="${mensaje}"></span>
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        
+          
+        
+        
+    </body>
+</html>
+
+
