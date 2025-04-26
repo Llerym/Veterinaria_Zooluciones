@@ -13,19 +13,35 @@ public class Cliente {
     
        private static final long serialVersionUID = 1L;
  
-       private Long idCliente;
+       private Integer idCliente;
        private String nombreCliente;
-       private int telefono;
+       private String telefono;
        private String email; 
-       private int idMascota; 
-       private int idDireccion;
+       private Integer idMascota; 
+       private String nombreMascota;
+       private Integer idDireccion;
+       private String descripcion;
+       private Integer idEstado;
+       private String estado;
+               
        
-       public Cliente() {
-       }
-       
-       public Cliente(String nombreCliente) {
-           this.nombreCliente = nombreCliente;
-           // this.telefono..... etc etc
-       }
+    public Cliente() {
+    }
+
+    public Cliente(Integer idCliente, String nombreCliente, String telefono, String email, Integer idMascota, String nombreMascota, Integer idDireccion, String descripcion, Integer idEstado, String estado) {
+        this.idCliente = idCliente;
+        this.nombreCliente = nombreCliente;
+        this.telefono = telefono;
+        this.email = email;
+        this.idMascota = idMascota;
+        this.nombreMascota = nombreMascota;
+        this.idDireccion = idDireccion;
+        this.descripcion = descripcion;
+        this.idEstado = idEstado;
+        this.estado = estado;
+    }
+
+    
+
     
 }

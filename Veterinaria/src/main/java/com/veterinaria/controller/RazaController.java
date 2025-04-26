@@ -24,21 +24,12 @@ public class RazaController {
     private RazaDao razaDao;
 
     @GetMapping("/listado")
-    public String mostrarFormulario() {
+    public String mostrarListado(Model model) {
+        List<Raza> razas = razaDao.listarRazas();
+        model.addAttribute("razas", razas);
         return "mascota/listadoRaza";  // Muestra el formulario
     }
 
-    @PostMapping("/listado")
-    public String insertarRaza(@RequestParam String descripcionRaza, Model model) {
-        try {
-            razaDao.insertarRaza(descripcionRaza);
-            model.addAttribute("mensaje", "Raza insertada con éxito");
-        } catch (Exception e) {
-            model.addAttribute("mensaje", "Error al insertar raza: " + e.getMessage());
-        }
-        return "mascota/listadoRaza";  // Vuelve a mostrar el formulario con el mensaje
-    }
-    
     
     @GetMapping("/insertar")
     public String mostrarFormulario(Model model) {
@@ -46,55 +37,65 @@ public class RazaController {
         return "mascota/insertarRaza"; // mostrar el formulario para insertar
     }
     
+    @PostMapping("/insertar")
+    public String insertarRaza(@RequestParam String descripcionRaza, Model model) {
+        try {
+            razaDao.insertarRaza(descripcionRaza);
+            model.addAttribute("mensaje", "Raza insertada con éxito");
+        } catch (Exception e) {
+            model.addAttribute("mensaje", "Error al insertar raza: " + e.getMessage());
+        }
+        return "mascota/insertarRaza";  // Vuelve a mostrar el formulario con el mensaje
+    }
     
  
-      @PostMapping("/eliminar")
+    @PostMapping("/eliminar")
     public String eliminarRaza(@RequestParam("idRaza") int idRaza, Model model) {
         razaDao.eliminarRaza(idRaza);
         model.addAttribute("mensaje", "Raza eliminada con éxito");
         return "redirect:/raza/listado";
     }
+   
     
-    
-        @GetMapping("/actualizar")
+
+    @GetMapping("/actualizar")
     public String mostrarActualizar(@RequestParam("idRaza") int idRaza, Model model) {
-        
+
         Raza raza = razaDao.buscarPorId(idRaza);
-        model.addAttribute("razas",   razaDao.listarRazas());
-        model.addAttribute("estados", List.of(1,2));
+        model.addAttribute("razas", razaDao.listarRazas());
+        model.addAttribute("estados", List.of(1, 2));
         return "mascota/actualizarRaza"; // mostrar el formulario para actualizar
     }
-    
+
     @PostMapping("/actualizar")
     public String actualizarRaza(@ModelAttribute("raza") Raza raza,
-                                    Model model) {
+            Model model) {
         try {
-            
-        razaDao.actualizarRaza(raza.getIdRaza(),
-                                     raza.getDescripcionRaza(),
-                                     raza.getIdEstado(),
-                                     raza.getEstado()
-                                     );
-       
-        model.addAttribute("mensaje", "Mascota actualizada con éxito");
-        model.addAttribute("razas",   razaDao.listarRazas());
-        model.addAttribute("estados", List.of(1,2));
-        
+
+            razaDao.actualizarRaza(raza.getIdRaza(),
+                    raza.getDescripcionRaza(),
+                    raza.getIdEstado(),
+                    raza.getEstado()
+            );
+
+            model.addAttribute("mensaje", "Mascota actualizada con éxito");
+            model.addAttribute("razas", razaDao.listarRazas());
+            model.addAttribute("estados", List.of(1, 2));
+
         } catch (Exception e) {
             model.addAttribute("mensaje", "Error al actualizar raza: " + e.getMessage());
         }
-        
+
         Raza actualizada = razaDao.buscarPorId(raza.getIdRaza());
-        
+
         model.addAttribute("raza", actualizada);
 
-   
-        model.addAttribute("razas",  razaDao.listarRazas());
-        
-        model.addAttribute("estados", List.of(1,2));
+        model.addAttribute("razas", razaDao.listarRazas());
+
+        model.addAttribute("estados", List.of(1, 2));
 
         
-        return "mascota/actualizar";
+        return "mascota/actualizarRaza";
     
       
     }

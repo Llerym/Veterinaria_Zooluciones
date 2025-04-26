@@ -369,7 +369,7 @@
         
         <section th:fragment="listarRazas">
             <div class="container mt-4">
-                <h2>Listado de Razass</h2>
+                <h2>Listado de Razas</h2>
 
                 <a th:href="@{/raza/insertar}" class="btn btn-info mb-3">Insertar Raza</a>
 
@@ -383,18 +383,19 @@
                     </thead>
                     <tbody>
                         
-                        <tr th:each="c : ${razas}">
-                            <td th:text="${c.descripcionRaza}"></td>
-                            <td th:text="${c.estado}"></td>
+                        <tr th:each="r : ${razas}">
+                            <td th:text="${r.descripcionRaza}"></td>
+                            <td th:text="${r.estado}"></td>
                             <td>
                                 <!-- BOTON ACTUALIZAR -->
-                                <a th:href="@{/raza/actualizar(idRaza=${c.idRaza})}"
-                                    class="btn btn-sm btn-warning">Editar</a>
- 
+                                <form th:action="@{/raza/actualizar}" method="post">
+                                    <input type="hidden" name="idRaza" th:value="${r.idRaza}"/>
+                                    <button type="submit" class="btn btn-warning">Editar</button>
+                                </form> 
 
                                 <!-- BOTON ELIMINAR (DESACTIVAR) -->
                                 <form th:action="@{/raza/eliminar}" method="post">
-                                    <input type="hidden" name="idRaza" th:value="${c.idRaza}"/>
+                                    <input type="hidden" name="idRaza" th:value="${r.idRaza}"/>
                                     <button type="submit" class="btn btn-danger">Eliminar</button>
                                 </form> 
 
@@ -407,9 +408,74 @@
         </section>
         
         
+        <!-- INSERTAR RAZA. LLAMA A INSERTAR RAZA.HTML -->
         
+         <section th:fragment="insertarRaza">
+            <div class="container mt-4">
+                <h2 class="mb-4">Insertar Raza</h2>
+
+                <form th:action="@{/raza/insertar}" method="post">
+                    <div class="form-row">
+                        
+                        <div class="form-group col-md-6">
+                            <label>Raza</label>
+                            <input type="text" class="form-control" name="descripcionRaza" required>
+                        </div>
+                        
+                    <button type="submit" class="btn btn-primary mt-3">Insertar</button>
+                    <br/>
+                    <div th:if="${mensaje}"
+                         th:classappend="${mensaje.contains('error') ? 'alert-danger' : 'alert-success'}"
+                         class="alert"
+                         role="alert">
+                        <span th:text="${mensaje}"></span>
+                    </div>
+
+                    </div>
+                </form>
+            </div>
+        </section>
         
-        
+        <!-- FORMULARIO PARA ACTUALIZAR RAZA. SE LLAMA EN RAZA.HTML -->
+
+        <section th:fragment="actualizarRaza">
+            <div class="container mt-4">
+                <h2 class="mb-4">Editar Raza</h2>
+                <form th:action="@{/raza/actualizar}"
+                      th:object="${raza}"
+                      method="post">
+                    <div class="form-row">
+                    <!-- ID oculto -->
+                    <input type="hidden" th:field="*{idRaza}" />
+
+                    <div class="form-group">
+                        <label>Raza Mascota:</label>
+                        <input type="text" th:field="*{descripcionRaza}"
+                               class="form-control" required/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Estado:</label>
+                        <select th:field="*{idEstado}" class="form-control" required>
+                            <option th:each="e : ${estados}"
+                                    th:value="${e}"
+                                    th:text="${e == 1 ? 'Activo' : 'Inactivo'}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    
+                    
+                    <!-- mensaje de éxito solamente si mensaje no es null y contiene "éxito" -->
+                    <div th:if="${mensaje != null and mensaje.contains('éxito')}"
+                         class="alert alert-success mt-3">
+                        <span th:text="${mensaje}"></span>
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </section>
         
         
         

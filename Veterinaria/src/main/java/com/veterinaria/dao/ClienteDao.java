@@ -3,6 +3,7 @@
 package com.veterinaria.dao;
 import com.veterinaria.domain.Cliente;
 import jakarta.annotation.PostConstruct;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import oracle.jdbc.OracleTypes;
@@ -19,17 +20,48 @@ public class ClienteDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
-    public void insertarCliente(String nombreCliente, String telefono, String email, 
-                                int idMascota, 
-                                int idDireccion) {
-        String sql = "{call insertar_cliente(?, ?, ?, ?, ?)}";
-        jdbcTemplate.update(sql, nombreCliente, telefono, email, 
-                            idMascota, idDireccion 
-                            );
-    }
     
     private SimpleJdbcCall listarClientesCall;
+
+    public void insertarCliente(String nombreCliente, String telefono, String email, 
+                                Integer idDireccion) {
+        String sql = "{call pkg_fide_veterinaria.insertar_cliente_sp(?, ?, ?, ?)}";
+        jdbcTemplate.update(sql, nombreCliente, telefono, email, idDireccion);
+    }
+    
+    public void eliminarCliente(Integer idCliente) {
+        String sql = "{call pkg_fide_veterinaria.eliminar_cliente_sp(?)}";
+        jdbcTemplate.update(sql,  idCliente);
+    }
+    
+    public void actualizarCliente(Integer idCliente, String nombreCliente, String telefono, String email, 
+                                Integer idDireccion, Integer idEstado) {
+        String sql = "{call pkg_fide_veterinaria.actualizar_cliente_sp(?,?,?,?,?,?)}";
+        jdbcTemplate.update(sql, idCliente, nombreCliente, telefono, email, idDireccion, idEstado);
+    }
+    
+    public Cliente buscarPorId(Integer idCliente) {
+    String sql =
+        "SELECT c.ID_CLIENTE       AS idCliente, " +
+        "       c.NOMBRE_CLIENTE   AS nombreCliente, " +
+        "       c.TELEFONO         AS telefono, " +
+        "       c.EMAIL            AS email, " +
+        "       c.ID_DIRECCION     AS idDireccion, " +
+        "       d.DESCRIPCION      AS descripcion, " +
+        "       c.ID_ESTADO        AS idEstado, " +
+        "       e.DESCRIPCION_ESTADO AS estado " +
+        "  FROM FIDE_CLIENTE_TB c " +
+        "  JOIN FIDE_ESTADO_TB e ON c.ID_ESTADO = e.ID_ESTADO " +
+        "  JOIN FIDE_DIRECCION_TB d ON c.ID_DIRECCION = d.ID_DIRECCION " +
+        " WHERE c.ID_CLIENTE = ?";
+    
+    return jdbcTemplate.queryForObject(
+        sql,
+        new BeanPropertyRowMapper<>(Cliente.class),
+        idCliente
+    );
+}
+
  
     @PostConstruct
     public void init() {
