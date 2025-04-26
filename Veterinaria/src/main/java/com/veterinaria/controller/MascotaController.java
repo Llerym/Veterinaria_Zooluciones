@@ -82,7 +82,7 @@ public class MascotaController {
     public String eliminarMascota(@RequestParam("idMascota") int idMascota, Model model) {
         mascotaDao.eliminarMascota(idMascota);
         model.addAttribute("mensaje", "Mascota eliminada con éxito");
-        return "mascota/listadoMascota";
+        return "redirect:/mascota/listado";
     }
     
     

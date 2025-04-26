@@ -13,14 +13,19 @@ public class Color implements Serializable{
 
        private static final long serialVersionUID = 1L;
  
-       private Long idColor;
+       private Integer idColor;
        private String descripcionColor;
+       private Integer idEstado;
+       private String estado;
        
        public Color() {
        }
        
-       public Color(String descripcionColor) {
+       public Color(Integer idColor, String descripcionColor, Integer idEstado, String estado ) {
+           this.idColor = idColor;
            this.descripcionColor = descripcionColor;
+           this.idEstado = idEstado;
+           this.estado = estado;
        }
     
    

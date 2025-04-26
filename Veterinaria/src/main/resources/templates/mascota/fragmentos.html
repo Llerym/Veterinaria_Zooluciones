@@ -45,14 +45,14 @@
                                     <input type="hidden" name="idMascota" th:value="${m.idMascota}"/>
                                     <button type="submit" class="btn btn-warning">Editar</button>
                                 </form> 
-                                
+
                                 <!-- BOTON ELIMINAR (DESACTIVAR) -->
                                 <form th:action="@{/mascota/eliminar}" method="post">
                                     <input type="hidden" name="idMascota" th:value="${m.idMascota}"/>
                                     <button type="submit" class="btn btn-danger">Eliminar</button>
                                 </form> 
-                                
-                                
+
+
                             </td>
                         </tr>
                     </tbody>
@@ -60,31 +60,8 @@
             </div>
         </section>
 
-        
-        
-        
-        
-        
-        
-        
-        
-        <section th:fragment="insertarColor">
-            <h2>Insertar Color</h2>
-
-            <form action="/color/listado" method="post">
-               
-
-                <label>Descripción del Color:</label>
-                <input type="text" name="descripcion" required>
-
-                <button type="submit">Insertar</button>
-            </form>
-
-            <p th:text="${mensaje}"></p>
-
-        </section>
-
-        <section th:fragment="insertarRaza">
+       
+        <!-- <section th:fragment="insertarRaza">
             <h2>Insertar Raza</h2>
 
             <form action="/raza/listado" method="post">
@@ -98,7 +75,8 @@
 
             <p th:text="${mensaje}"></p>
 
-        </section>
+        </section> -->
+        
 
 
         <!-- FORMULARIO PARA INSERTAR MASCOTA. SE LLAMA EN INSERTAR.HTML -->
@@ -180,13 +158,14 @@
 
 
         <!-- FORMULARIO PARA ACTUALIZAR MASCOTA. SE LLAMA EN ACTUALIZAR.HTML -->
+
         <section th:fragment="actualizarMascota">
             <div class="container mt-4">
-                <h2>Editar Mascota</h2>
+                <h2 class="mb-4">Editar Mascota</h2>
                 <form th:action="@{/mascota/actualizar}"
                       th:object="${mascota}"
                       method="post">
-
+                    <div class="form-row">
                     <!-- ID oculto -->
                     <input type="hidden" th:field="*{idMascota}" />
 
@@ -265,13 +244,186 @@
                          class="alert alert-success mt-3">
                         <span th:text="${mensaje}"></span>
                     </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        
+        
+        <!-- COLOR -->
+        
+        <!-- LISTA CON COLORES -->
+        <section th:fragment="listarColores">
+            <div class="container mt-4">
+                <h2>Listado de Colores</h2>
+
+                <a th:href="@{/color/insertar}" class="btn btn-info mb-3">Insertar Color</a>
+
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Color</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr th:each="c : ${colores}">
+                            <td th:text="${c.descripcionColor}"></td>
+                            <td th:text="${c.estado}"></td>
+                            <td>
+                                <!-- BOTON ACTUALIZAR -->
+                                <a th:href="@{/color/actualizar(idColor=${c.idColor})}"
+                                    class="btn btn-sm btn-warning">Editar</a>
  
+
+                                <!-- BOTON ELIMINAR (DESACTIVAR) -->
+                                <form th:action="@{/color/eliminar}" method="post">
+                                    <input type="hidden" name="idColor" th:value="${c.idColor}"/>
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                </form> 
+
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- INSERTAR COLOR. LLAMA A INSERTAR COLOR.HTML -->
+        
+         <section th:fragment="insertarColor">
+            <div class="container mt-4">
+                <h2 class="mb-4">Insertar Color</h2>
+
+                <form th:action="@{/color/insertar}" method="post">
+                    <div class="form-row">
+                        
+                        <div class="form-group col-md-6">
+                            <label>Color</label>
+                            <input type="text" class="form-control" name="descripcionColor" required>
+                        </div>
+                        
+                    <button type="submit" class="btn btn-primary mt-3">Insertar</button>
+                    <br/>
+                    <div th:if="${mensaje}"
+                         th:classappend="${mensaje.contains('error') ? 'alert-danger' : 'alert-success'}"
+                         class="alert"
+                         role="alert">
+                        <span th:text="${mensaje}"></span>
+                    </div>
+
+                    </div>
+                </form>
+            </div>
+        </section>
+        
+        <!-- Actualizar color -->
+        
+        <section th:fragment="actualizarColor">
+            <div class="container mt-4">
+                <h2 class="mb-4">Editar Color</h2>
+                <form th:action="@{/color/actualizar}"
+                      th:object="${color}"
+                      method="post">
+                    <div class="form-row">
+                    <!-- ID oculto -->
+                    <input type="hidden" th:field="*{idColor}" />
+
+                    <div class="form-group">
+                        <label>Color:</label>
+                        <input type="text" th:field="*{descripcionColor}"
+                               class="form-control" required/>
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <label>Estado:</label>
+                        <select th:field="*{idEstado}" class="form-control" required>
+                            <option th:each="e : ${estados}"
+                                    th:value="${e}"
+                                    th:text="${e == 1 ? 'Activo' : 'Inactivo'}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    
+                    
+                    <!-- mensaje de éxito solamente si mensaje no es null y contiene "éxito" -->
+                    <div th:if="${mensaje != null and mensaje.contains('éxito')}"
+                         class="alert alert-success mt-3">
+                        <span th:text="${mensaje}"></span>
+                    </div>
+                    </div>
                 </form>
             </div>
         </section>
 
+        
+        
+        <!-- listado razas -->
+        
+        
+        <section th:fragment="listarRazas">
+            <div class="container mt-4">
+                <h2>Listado de Razass</h2>
+
+                <a th:href="@{/raza/insertar}" class="btn btn-info mb-3">Insertar Raza</a>
+
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Raza</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr th:each="c : ${razas}">
+                            <td th:text="${c.descripcionRaza}"></td>
+                            <td th:text="${c.estado}"></td>
+                            <td>
+                                <!-- BOTON ACTUALIZAR -->
+                                <a th:href="@{/raza/actualizar(idRaza=${c.idRaza})}"
+                                    class="btn btn-sm btn-warning">Editar</a>
+ 
+
+                                <!-- BOTON ELIMINAR (DESACTIVAR) -->
+                                <form th:action="@{/raza/eliminar}" method="post">
+                                    <input type="hidden" name="idRaza" th:value="${c.idRaza}"/>
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                </form> 
 
 
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     </body>
 </html>
 

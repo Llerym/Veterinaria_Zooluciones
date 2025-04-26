@@ -40,7 +40,7 @@ public class MascotaDao {
     public void actualizarMascota(Integer idMascota, String nombreMascota, Integer edad, double peso,
                                   Date fechaNacimiento, Integer idRaza, Integer idColor, Integer idCliente,
                                   Integer idEstado) {
-        String sql = "{call pkg_fide_veterinaria.actualizar_mascota(?,?,?,?,?,?,?,?,?)}";
+        String sql = "{call pkg_fide_veterinaria.actualizar_mascota_sp(?,?,?,?,?,?,?,?,?)}";
         jdbcTemplate.update(sql, idMascota, nombreMascota, edad, peso,
                             new java.sql.Timestamp(fechaNacimiento.getTime()),
                             idRaza, idColor, idCliente, idEstado);

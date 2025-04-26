@@ -16,14 +16,20 @@ public class Raza implements Serializable{
 
        private static final long serialVersionUID = 1L;
  
-       private Long idRaza;
+       private Integer idRaza;
        private String descripcionRaza;
+       private Integer idEstado;
+        private String estado;
        
        public Raza() {
        }
        
-       public Raza(String descripcionRaza) {
+       public Raza(Integer idRaza, String descripcionRaza, Integer idEstado, String estado) {
+           
+           this.idRaza = idRaza;
            this.descripcionRaza = descripcionRaza;
+           this.idEstado = idEstado;
+           this.estado = estado;
        }
     
    

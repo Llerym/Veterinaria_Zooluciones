@@ -31,6 +31,50 @@ public class RazaDao {
 
     private SimpleJdbcCall listarRazasCall;
  
+     public void eliminarRaza(Integer idRaza) {
+        String sql = "{call pkg_fide_veterinaria.eliminar_raza_sp(?)}";
+        jdbcTemplate.update(sql,  idRaza);
+    }
+    
+    public void actualizarRaza(Integer idRaza, String descripcionRaza,
+                                  Integer idEstado, String estado) {
+        String sql = "{call pkg_fide_veterinaria.actualizar_raza_sp(?,?,?,?)}";
+        jdbcTemplate.update(sql, idRaza, descripcionRaza, idEstado, estado);
+    }
+    
+    
+        public Raza buscarPorId(Integer idRaza) {
+        String sql =
+                "SELECT c.ID_Raza        AS idRaza, " +
+            "       c.DESCRIPCION_Raza AS descripcionRaza, " +
+            "       c.ID_ESTADO         AS idEstado, " +
+            "       e.DESCRIPCION_ESTADO AS estado " +
+            "  FROM FIDE_Raza_TB c " +
+            "  JOIN FIDE_ESTADO_TB e  ON c.ID_ESTADO  = e.ID_ESTADO " +
+            " WHERE c.ID_Raza = ?";
+        return jdbcTemplate.queryForObject(
+            sql,
+            new BeanPropertyRowMapper<>(Raza.class),
+            idRaza
+        );
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @PostConstruct
 
     public void init() {
