@@ -1,78 +1,204 @@
 <!DOCTYPE html>
 <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Direcciones</title>
+    </head>
     
-        <section th:fragment="insertarProvincia">
-            <h2>Insertar Provincia</h2>
+    
+    
+    <body>
 
-            <form action="/provincia/listado" method="post">
-                
+        <section th:fragment="listarDirecciones">
+            <div class="container mt-4">
+                <h2>Listado de Direcciones</h2>
 
-                <label>Nombre de la Provincia: </label>
-                <input type="text" name="nombreProvincia" required>
+                <a th:href="@{/direccion/insertar}" class="btn btn-info mb-3">Insertar Direccion</a>
 
-                <button type="submit">Insertar</button>
-            </form>
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Direccion Completa</th>
+                            <th>Provincia</th>
+                            <th>Canton</th>
+                            <th>Distrito</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                        
+                    </thead>
+                    <tbody>
+                        <tr th:each="d : ${direcciones}">
+                            <td th:text="${d.descripcion}"></td>
+                            <td th:text="${d.nombreProvincia}"></td>
+                            <td th:text="${d.nombreCanton}"></td>
+                            <td th:text="${d.nombreDistrito}"></td>
+                            <td th:text="${d.estado}"></td>
+                            
+                            
+                            <td>
+                                <!-- BOTON ACTUALIZAR -->
+                                <form th:action="@{/direccion/actualizar}" method="post">
+                                    <input type="hidden" name="idDireccion" th:value="${d.idDireccion}"/>
+                                    <button type="submit" class="btn btn-warning">Editar</button>
+                                </form> 
 
-            <p th:text="${mensaje}"></p>
+                                <!-- BOTON ELIMINAR (DESACTIVAR) -->
+                                <form th:action="@{/direccion/eliminar}" method="post">
+                                    <input type="hidden" name="idDireccion" th:value="${d.idDireccion}"/>
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                </form> 
 
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+        <!-- FORMULARIO PARA INSERTAR DIRECCION. SE LLAMA EN INSERTAR.HTML -->
+        <section th:fragment="insertarDireccion">
+            <div class="container mt-4">
+                <h2 class="mb-4">Insertar Direccion</h2>
+
+                <form th:action="@{/direccion/insertar}" method="post">
+                    <div class="form-row">
+                        
+                        <div class="form-group col-md-6">
+                            <label>Direccion completa</label>
+                            <input type="text" class="form-control" name="descripcion" required>
+                        </div>
+
+                        
+                        <div class="form-group col-md-6">
+                            <label>Provincia</label>
+                            <select name="idProvincia" class="form-control" required>
+                                <option value="">Seleccione una provincia</option>
+                                <option th:each="p : ${provincias}" 
+                                        th:value="${p.idProvincia}" 
+                                        th:text="${p.nombreProvincia}">
+                                </option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group col-md-6">
+                            <label>Canton</label>
+                            <select name="idCanton" class="form-control" required>
+                                <option value="">Seleccione un canton</option>
+                                <option th:each="c : ${cantones}" 
+                                        th:value="${c.idCanton}" 
+                                        th:text="${c.nombreCanton}">
+                                </option>
+                            </select>
+                        </div>
+                        
+                    <div class="form-group col-md-6">
+                            <label>Distrito</label>
+                            <select name="idDistrito" class="form-control" required>
+                                <option value="">Seleccione un distrito</option>
+                                <option th:each="di : ${distritos}" 
+                                        th:value="${di.idDistrito}" 
+                                        th:text="${di.nombreDistrito}">
+                                </option>
+                            </select>
+                        </div>
+
+                    <button type="submit" class="btn btn-primary mt-3">Insertar</button>
+                    <br/>
+                    <div th:if="${mensaje}"
+                         th:classappend="${mensaje.contains('error') ? 'alert-danger' : 'alert-success'}"
+                         class="alert"
+                         role="alert">
+                        <span th:text="${mensaje}"></span>
+                    </div>
+
+                    </div>
+                </form>
+            </div>
+        </section>
+
+
+        <!-- FORMULARIO PARA ACTUALIZAR DIRECCION. SE LLAMA EN ACTUALIZAR.HTML -->
+
+        <section th:fragment="actualizarDireccion">
+            <div class="container mt-4">
+                <h2 class="mb-4">Editar Direccion</h2>
+                <form th:action="@{/direccion/actualizar}"
+                      th:object="${direccion}"
+                      method="post">
+                    <div class="form-row">
+                    <!-- ID oculto -->
+                    <input type="hidden" th:field="*{idDireccion}" />
+
+                    <div class="form-group">
+                        <label>Direccion completa:</label>
+                        <input type="text" th:field="*{descripcion}"
+                               class="form-control" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Provincia</label>
+                        <select th:field="*{idProvincia}" class="form-control" required>
+                            <option value="" disabled>-- Elija una provincia --</option>
+                            <option th:each="p : ${provincias}"
+                                    th:value="${p.idProvincia}"
+                                    th:text="${p.nombreProvincia}">
+                            </option>
+                        </select>
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label>Canton</label>
+                        <select th:field="*{idCanton}" class="form-control" required>
+                            <option value="" disabled>-- Elija un canton --</option>
+                            <option th:each="c : ${cantones}"
+                                    th:value="${c.idCanton}"
+                                    th:text="${c.nombreCanton}">
+                            </option>
+                        </select>
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label>Distrito</label>
+                        <select th:field="*{idDistrito}" class="form-control" required>
+                            <option value="" disabled>-- Elija un distrito --</option>
+                            <option th:each="di : ${distritos}"
+                                    th:value="${di.idDistrito}"
+                                    th:text="${di.nombreDistrito}">
+                            </option>
+                        </select>
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label>Estado:</label>
+                        <select th:field="*{idEstado}" class="form-control" required>
+                            <option th:each="e : ${estados}"
+                                    th:value="${e}"
+                                    th:text="${e == 1 ? 'Activo' : 'Inactivo'}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    
+                    
+                    <!-- mensaje de éxito solamente si mensaje no es null y contiene "éxito" -->
+                    <div th:if="${mensaje != null and mensaje.contains('éxito')}"
+                         class="alert alert-success mt-3">
+                        <span th:text="${mensaje}"></span>
+                    </div>
+                    </div>
+                </form>
+            </div>
         </section>
         
-        <section th:fragment="insertarCanton">
-            <h2>Insertar Canton</h2>
-
-            <form action="/canton/listado" method="post">
-                
-
-                <label>Nombre del Cantón: </label>
-                <input type="text" name="nombreCanton" required>
-             
-                
-                <label>Id de provincia: </label>
-                <input type="text" name="idProvincia" required>
-                
-                <button type="submit">Insertar</button>
-                
-                
-                
-            </form>
-
-            <p th:text="${mensaje}"></p>
-
-        </section>
-    
-    
-    
-     <section th:fragment="insertarDistrito">
-            <h2>Insertar Distrito</h2>
-
-            <form action="/distrito/listado" method="post">
-                
-
-                <label>Nombre del Distrito: </label>
-                <input type="text" name="nombreDistrito" required>
-             
-                
-                <label>Id del canton: </label>
-                <input type="text" name="idCanton" required>
-                
-                
-                  <label>Id de la provincia:  </label>
-                <input type="text" name="idProvincia" required>
-                
-                <button type="submit">Insertar</button>
-                
-                
-                
-            </form>
-
-            <p th:text="${mensaje}"></p>
-
-        </section>
-    
-    
-    
-    
-
+        
+        
     </body>
 </html>
 

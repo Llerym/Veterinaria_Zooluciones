@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Veterinarios</title>
+    </head>
+    
+    
+    
+    <body>
+
+        <section th:fragment="listarVeterinarios">
+            <div class="container mt-4">
+                <h2>Listado de Veterinarios</h2>
+
+                <a th:href="@{/veterinario/insertar}" class="btn btn-info mb-3">Insertar Veterinario</a>
+
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Nombre Veterinario</th>
+                            <th>Telefono</th>
+                            <th>Email</th>
+                            <th>Direccion</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="v : ${veterinarios}">
+                            <td th:text="${v.nombreVeterinario}"></td>
+                            <td th:text="${v.telefonoVeterinario}"></td>
+                            <td th:text="${v.emailVeterinario}"></td>
+                            <td th:text="${v.descripcion}"></td>
+                            <td th:text="${v.estado}"></td>
+                            
+                            <td>
+                                <!-- BOTON ACTUALIZAR -->
+                                <form th:action="@{/veterinario/actualizar}" method="post">
+                                    <input type="hidden" name="idVeterinario" th:value="${v.idVeterinario}"/>
+                                    <button type="submit" class="btn btn-warning">Editar</button>
+                                </form> 
+
+                                <!-- BOTON ELIMINAR (DESACTIVAR) -->
+                                <form th:action="@{/veterinario/eliminar}" method="post">
+                                    <input type="hidden" name="idVeterinario" th:value="${v.idVeterinario}"/>
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                </form> 
+
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+        <!-- FORMULARIO PARA INSERTAR VETERINARIO. SE LLAMA EN INSERTAR.HTML -->
+        <section th:fragment="insertarVeterinario">
+            <div class="container mt-4">
+                <h2 class="mb-4">Insertar Veterinario</h2>
+
+                <form th:action="@{/veterinario/insertar}" method="post">
+                    <div class="form-row">
+                        
+                        <div class="form-group col-md-6">
+                            <label>Nombre Veterinario:</label>
+                            <input type="text" class="form-control" name="nombreVeterinario" required>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Telefono:</label>
+                            <input type="text" class="form-control" name="telefonoVeterinario" required>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Email:</label>
+                            <input type="email" class="form-control" name="emailVeterinario" required>
+                        </div>
+                        
+                        <div class="form-group col-md-6">
+                            <label>Direccion</label>
+                            <select name="idDireccion" class="form-control" required>
+                                <option value="">Seleccione una direccion</option>
+                                <option th:each="d : ${direcciones}" 
+                                        th:value="${d.idDireccion}" 
+                                        th:text="${d.descripcion}">
+                                </option>
+                            </select>
+                        </div>
+
+                    <button type="submit" class="btn btn-primary mt-3">Insertar</button>
+                    <br/>
+                    <div th:if="${mensaje}"
+                         th:classappend="${mensaje.contains('error') ? 'alert-danger' : 'alert-success'}"
+                         class="alert"
+                         role="alert">
+                        <span th:text="${mensaje}"></span>
+                    </div>
+
+                    </div>
+                </form>
+            </div>
+        </section>
+
+
+        <!-- FORMULARIO PARA ACTUALIZAR VETERINARIO. SE LLAMA EN ACTUALIZAR.HTML -->
+
+        <section th:fragment="actualizarVeterinario">
+            <div class="container mt-4">
+                <h2 class="mb-4">Editar Veterinario</h2>
+                <form th:action="@{/veterinario/actualizar}"
+                      th:object="${veterinario}"
+                      method="post">
+                    <div class="form-row">
+                    <!-- ID oculto -->
+                    <input type="hidden" th:field="*{idVeterinario}" />
+
+                    <div class="form-group">
+                        <label>Nombre Veterinario</label>
+                        <input type="text" th:field="*{nombreVeterinario}"
+                               class="form-control" required/>
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <label>Telefono:</label>
+                        <input type="text" step="0.01" th:field="*{telefonoVeterinario}"
+                               class="form-control" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" th:field="*{emailVeterinario}"
+                               class="form-control" required/>
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label>Direccion:</label>
+                        <select th:field="*{idDireccion}" class="form-control" required>
+                            <option value="" disabled>-- Elija una direccion --</option>
+                            <option th:each="d : ${direcciones}"
+                                    th:value="${d.idDireccion}"
+                                    th:text="${d.descripcion}">
+                            </option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Estado:</label>
+                        <select th:field="*{idEstado}" class="form-control" required>
+                            <option th:each="e : ${estados}"
+                                    th:value="${e}"
+                                    th:text="${e == 1 ? 'Activo' : 'Inactivo'}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    
+                    
+                    <!-- mensaje de éxito solamente si mensaje no es null y contiene "éxito" -->
+                    <div th:if="${mensaje != null and mensaje.contains('éxito')}"
+                         class="alert alert-success mt-3">
+                        <span th:text="${mensaje}"></span>
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        
+        
+        
+    </body>
+</html>
+
+

@@ -1,18 +1,18 @@
 
+
 package com.veterinaria.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import java.io.Serializable;
 import lombok.Data;
 
+
 @Data
-@Table(name = "FIDE_DIRECCION_TB")
-public class Direccion implements Serializable {
+@Table(name = "FIDE_DISTRITO_TB")
+public class Distrito implements Serializable{
     
     private static final long serialVersionUID = 1L;
     
-    private Integer idDireccion;
-    private String descripcion;
     private Integer idDistrito;
     private String nombreDistrito;
     private Integer idCanton;
@@ -22,14 +22,14 @@ public class Direccion implements Serializable {
     private Integer idEstado;
     private String estado;
     
+   
     
-    public Direccion() {
+    public Distrito() {
+        
         
     }
 
-    public Direccion(Integer idDireccion, String descripcion, Integer idDistrito, String nombreDistrito, Integer idCanton, String nombreCanton, Integer idProvincia, String nombreProvincia, Integer idEstado, String estado) {
-        this.idDireccion = idDireccion;
-        this.descripcion = descripcion;
+    public Distrito(Integer idDistrito, String nombreDistrito, Integer idCanton, String nombreCanton, Integer idProvincia, String nombreProvincia, Integer idEstado, String estado) {
         this.idDistrito = idDistrito;
         this.nombreDistrito = nombreDistrito;
         this.idCanton = idCanton;
@@ -40,6 +40,7 @@ public class Direccion implements Serializable {
         this.estado = estado;
     }
 
+    
     
     
     
